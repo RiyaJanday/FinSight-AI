@@ -1,9 +1,9 @@
 import axios from "axios";
 import { store } from "../store/store.js";
-import { logout ,setCredentials} from "../store/authslice.js";
+import { logout, setCredentials } from "../store/authSlice.js";
 
 const api = axios.create({
-  baseURL: "/api",   // ← must be just /api, no full URL
+  baseURL: import.meta.env.VITE_API_URL || "/api",
   headers: { "Content-Type": "application/json" },
 });
 
