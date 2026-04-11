@@ -85,13 +85,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 connectDB().then(async () => {
   try { await verifyMailer(); } catch (err) {
     console.log("Mailer failed, continuing...", err.message);
   }
-  httpServer.listen(PORT, () => {
+  httpServer.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 FinSight AI Server running on port ${PORT}`);
   });
 }).catch((err) => {
