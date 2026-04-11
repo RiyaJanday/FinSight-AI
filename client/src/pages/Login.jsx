@@ -115,7 +115,7 @@ export default function Login() {
             Track expenses, manage budgets, and achieve your financial goals with AI-powered insights.
           </p>
           <div style={{ display: "flex", gap: 28 }}>
-            {[["10K+","Users"],["₹50Cr+","Tracked"],["99.9%","Uptime"]].map(([v,l]) => (
+            {[["Users"],["Tracked"],["Uptime"]].map(([v,l]) => (
               <div key={l}>
                 <div style={{ color: "#60a5fa", fontSize: "20px", fontWeight: 700 }}>{v}</div>
                 <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px" }}>{l}</div>
