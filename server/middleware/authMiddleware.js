@@ -63,21 +63,21 @@ export const protect = async (req, res, next) => {
 import rateLimit from "express-rate-limit";
 
 export const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10,                   // max 10 requests per window
-  message: {
-    message: "Too many requests from this IP. Please try again after 15 minutes.",
-  },
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  skip: () => false,
+  validate: { xForwardedForHeader: false },
+  message: { message: "Too many requests. Try again after 15 minutes." },
   standardHeaders: true,
   legacyHeaders: false,
 });
 
 export const otpLimiter = rateLimit({
-  windowMs: 5 * 60 * 1000,  // 5 minutes
-  max: 3,                    // max 3 OTP requests per 5 min
-  message: {
-    message: "Too many OTP requests. Please wait 5 minutes before trying again.",
-  },
+  windowMs: 5 * 60 * 1000,
+  max: 10,
+  skip: () => false,
+  validate: { xForwardedForHeader: false },
+  message: { message: "Too many OTP requests. Wait 5 minutes." },
   standardHeaders: true,
   legacyHeaders: false,
 });
