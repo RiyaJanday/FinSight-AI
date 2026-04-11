@@ -17,6 +17,9 @@ export const verifyMailer = async () => {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS,
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
     await transporter.verify();
@@ -29,15 +32,23 @@ export const verifyMailer = async () => {
 
 export const sendMail = async ({ to, subject, html }) => {
   if (!transporter) {
-    console.log("📧 [DEV MAIL SKIPPED]");
-    console.log("To:", to);
-    console.log("Subject:", subject);
+    // Fallback — print to logs
+    console.log("📧 [MAIL FALLBACK - CHECK RAILWAY LOGS]");
+    console.log(`To: ${to}`);
+    console.log(`Subject: ${subject}`);
     return;
   }
-  await transporter.sendMail({
-    from: `"FinSight AI" <${process.env.GMAIL_USER}>`,
-    to,
-    subject,
-    html,
-  });
+
+  try {
+    await transporter.sendMail({
+      from:    `"FinSight AI" <${process.env.GMAIL_USER}>`,
+      to,
+      subject,
+      html,
+    });
+    console.log(`✅ Email sent to ${to}`);
+  } catch (err) {
+    console.error("❌ Email send failed:", err.message);
+    // Don't throw — app continues even if email fails
+  }
 };
