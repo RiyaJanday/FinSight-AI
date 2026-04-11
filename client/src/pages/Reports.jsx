@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { logout } from "../store/authSlice.js";
+import { logout, setCredentials } from "../store/authSlice.js";
 import api from "../services/api.js";
 
 const navItems = [
