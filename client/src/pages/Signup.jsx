@@ -129,7 +129,7 @@ export default function Signup() {
 
               <form onSubmit={handleSignup}>
                 {[
-                  { label: "Full Name", name: "name", type: "text", placeholder: "Riya Janday" },
+                  { label: "Full Name", name: "name", type: "text", placeholder: "Your Name here" },
                   { label: "Email", name: "email", type: "email", placeholder: "you@domain.com" },
                   { label: "Password", name: "password", type: "password", placeholder: "Min 8 characters" },
                   { label: "Confirm Password", name: "confirm", type: "password", placeholder: "Repeat password" },
