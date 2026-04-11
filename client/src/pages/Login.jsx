@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import api from "../services/api.js";
-import { setCredentials } from "../store/authslice.js";
+import { setCredentials } from "../store/authSlice.js";
 
 const inputStyle = {
   width: "100%", padding: "11px 14px", fontSize: "14px",
