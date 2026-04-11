@@ -4,18 +4,22 @@ let transporter;
 
 export const verifyMailer = async () => {
   try {
-    // Skip if credentials not set
     if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
-      console.log("⚠ Gmail skipped — no credentials set");
+      console.log("⚠ Gmail skipped — no credentials");
       return;
     }
 
     transporter = nodemailer.createTransport({
-      service: "gmail",
+      host:   "smtp.gmail.com",
+      port:   465,
+      secure: true,
       auth: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS,
       },
+      connectionTimeout: 10000,
+      greetingTimeout:   10000,
+      socketTimeout:     10000,
     });
 
     await transporter.verify();
@@ -28,11 +32,10 @@ export const verifyMailer = async () => {
 
 export const sendMail = async ({ to, subject, html }) => {
   if (!transporter) {
-    // During development — just log OTP to console instead
     console.log("📧 [DEV MAIL SKIPPED]");
     console.log("To:", to);
     console.log("Subject:", subject);
-    console.log("Body:", html);
+    console.log("Body preview:", html.substring(0, 100));
     return;
   }
 
