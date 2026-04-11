@@ -21,7 +21,8 @@ import accountRoutes     from "./routes/accounts.js";
 import aiRoutes          from "./routes/ai.js";
 import reportRoutes      from "./routes/reports.js";
 
-const app        = express();
+const app= express();
+app.set("trust proxy", 1);
 const httpServer = http.createServer(app);
 
 const allowedOrigins = [

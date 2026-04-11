@@ -17,9 +17,6 @@ export const verifyMailer = async () => {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS,
       },
-      connectionTimeout: 10000,
-      greetingTimeout:   10000,
-      socketTimeout:     10000,
     });
 
     await transporter.verify();
@@ -35,10 +32,8 @@ export const sendMail = async ({ to, subject, html }) => {
     console.log("📧 [DEV MAIL SKIPPED]");
     console.log("To:", to);
     console.log("Subject:", subject);
-    console.log("Body preview:", html.substring(0, 100));
     return;
   }
-
   await transporter.sendMail({
     from: `"FinSight AI" <${process.env.GMAIL_USER}>`,
     to,
