@@ -9,9 +9,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user,
-    accessToken: token || null,
+    accessToken:     token || null,
     isAuthenticated: !!token,
-    loading: false,
+    loading:         false,
   },
   reducers: {
     setCredentials: (state, action) => {
