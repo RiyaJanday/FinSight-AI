@@ -19,10 +19,8 @@ import reportRoutes      from "./routes/reports.js";
 const app        = express();
 const httpServer = http.createServer(app);
 
-// ── Trust proxy for Railway ───────────────────────────────────
 app.set("trust proxy", 1);
 
-// ── CORS — allow all origins during development ───────────────
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
@@ -30,7 +28,6 @@ app.use(cors({
   credentials: false,
 }));
 
-// Handle preflight requests
 app.options("*", cors());
 
 app.use(helmet({
@@ -41,7 +38,6 @@ app.use(helmet({
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// ── Socket.io ─────────────────────────────────────────────────
 export const io = new Server(httpServer, {
   cors: { origin: "*", methods: ["GET", "POST"] },
 });
@@ -52,7 +48,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => console.log(`Socket disconnected: ${socket.id}`));
 });
 
-// ── Routes ────────────────────────────────────────────────────
 app.use("/api/auth",         authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/budget",       budgetRoutes);
@@ -60,6 +55,10 @@ app.use("/api/goals",        goalRoutes);
 app.use("/api/accounts",     accountRoutes);
 app.use("/api/ai",           aiRoutes);
 app.use("/api/reports",      reportRoutes);
+
+app.get("/", (req, res) => {
+  res.json({ app: "FinSight AI API", status: "running", version: "1.0.0" });
+});
 
 app.get("/api/health", (req, res) => {
   res.json({
@@ -76,11 +75,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 connectDB().then(async () => {
   try { await verifyMailer(); } catch (err) {
-    console.log("Mailer failed, continuing...", err.message);
+    console.log("Mailer failed:", err.message);
   }
   httpServer.listen(PORT, "0.0.0.0", () => {
     console.log(`🚀 FinSight AI Server running on port ${PORT}`);
