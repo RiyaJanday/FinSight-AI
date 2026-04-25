@@ -1,3 +1,3 @@
 # 🚀 Live Demo
 
-🔗 https://fin-sight-ai-git-main-riyajandays-projects.vercel.app/
+🔗 https://finsight-ai19.onrender.com
